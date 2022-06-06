@@ -513,12 +513,12 @@ def unified(url: str) -> str:
   
 def parse_info(res, url):
     info_parsed = {}
-    #title = re_findall('>(.*?)<\/h4>', res.text)[0]
-    if 'drivebuzz' in url:
-        info_chunks = re_findall('<td\salign="right">(.*?)<\/td>', res.text)
-    else:
-        info_chunks = re_findall('>(.*?)<\/td>', res.text)
-    #info_parsed['title'] = title
+    title = re_findall('>(.*?)<\/h4>', res.text)[0]
+    #if 'drivebuzz' in url:
+    #    info_chunks = re_findall('<td\salign="right">(.*?)<\/td>', res.text)
+    #else:
+    info_chunks = re_findall('>(.*?)<\/td>', res.text)
+    info_parsed['title'] = title
     for i in range(0, len(info_chunks), 2):
         info_parsed[info_chunks[i]] = info_chunks[i+1]
     return info_parsed
@@ -535,14 +535,14 @@ def udrive(url: str) -> str:
         client.cookies.update({'crypt': KATDRIVE_CRYPT})
     if 'drivefire' in url:
         client.cookies.update({'crypt': DRIVEFIRE_CRYPT})
-    if 'drivebuzz' in url:
-        client.cookies.update({'crypt': DRIVEFIRE_CRYPT})
+    #if 'drivebuzz' in url:
+    #    client.cookies.update({'crypt': DRIVEFIRE_CRYPT})
         
     res = client.get(url)
     info_parsed = parse_info(res, url)
     
-    if 'drivebuzz' not in url:
-        info_parsed['error'] = False
+    #if 'drivebuzz' not in url:
+    info_parsed['error'] = False
     
     up = urlparse(url)
     req_url = f"{up.scheme}://{up.netloc}/ajax.php?ajax=download"
@@ -567,10 +567,10 @@ def udrive(url: str) -> str:
         gd_id = res.rsplit("=", 1)[-1]
         flink = f"https://drive.google.com/open?id={gd_id}"
         return flink
-    elif 'drivebuzz' in url:
-        gd_id = res.rsplit("=", 1)[-1]
-        flink = f"https://drive.google.com/open?id={gd_id}"
-        return flink
+    #elif 'drivebuzz' in url:
+    #    gd_id = res.rsplit("=", 1)[-1]
+    #    flink = f"https://drive.google.com/open?id={gd_id}"
+    #    return flink
     else:
         gd_id = re_findall('gd=(.*)', res, re.DOTALL)[0]
  

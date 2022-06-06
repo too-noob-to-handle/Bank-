@@ -418,7 +418,7 @@ def parse_infou(data):
 def unified(url: str) -> str:
     if (UNIFIED_EMAIL or UNIFIED_PASS) is None:
         raise DirectDownloadLinkException("UNIFIED_EMAIL and UNIFIED_PASS env vars not provided")
-    client = requests.rsession()
+    client = rsession()
     client.headers.update({
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
     })
@@ -524,7 +524,7 @@ def parse_info(res, url):
     return info_parsed
   
 def udrive(url: str) -> str:
-    client = requests.rsession()
+    client = rsession()
     if 'hubdrive' in url:
         client.cookies.update({'crypt': HUBDRIVE_CRYPT})
     if 'drivehub' in url:

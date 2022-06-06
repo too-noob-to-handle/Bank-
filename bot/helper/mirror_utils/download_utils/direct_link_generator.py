@@ -518,7 +518,7 @@ def parse_info(res, url):
         info_chunks = re_findall('<td\salign="right">(.*?)<\/td>', res.text)
     else:
         info_chunks = re_findall('>(.*?)<\/td>', res.text)
-    info_parsed['title'] = title
+    #info_parsed['title'] = title
     for i in range(0, len(info_chunks), 2):
         info_parsed[info_chunks[i]] = info_chunks[i+1]
     return info_parsed

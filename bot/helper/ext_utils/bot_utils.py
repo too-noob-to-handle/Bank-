@@ -243,7 +243,7 @@ def is_unified_link(url: str):
     return bool(url)
 
 def is_udrive_link(url: str):
-    url = re_match(r'https?://(hubdrive|drivehub|katdrive|kolop|drivefire|drivebuzz)\.\S+', url)
+    url = re_match(r'https?://(hubdrive|drivehub|katdrive|kolop|drivefire)\.\S+', url)
     return bool(url)
 
 def is_mega_link(url: str):

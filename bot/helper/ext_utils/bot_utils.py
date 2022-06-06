@@ -239,11 +239,11 @@ def is_gdtot_link(url: str):
     return bool(url)
 
 def is_unified_link(url: str):
-    url = re.match(r'https?://(appdrive|driveapp|driveace|gdflix|drivelinks|drivebit|drivesharer|drivepro)\.\S+', url)
+    url = re_match(r'https?://(appdrive|driveapp|driveace|gdflix|drivelinks|drivebit|drivesharer|drivepro)\.\S+', url)
     return bool(url)
 
 def is_udrive_link(url: str):
-    url = re.match(r'https?://(hubdrive|drivehub|katdrive|kolop|drivefire|drivebuzz)\.\S+', url)
+    url = re_match(r'https?://(hubdrive|drivehub|katdrive|kolop|drivefire|drivebuzz)\.\S+', url)
     return bool(url)
 
 def is_mega_link(url: str):

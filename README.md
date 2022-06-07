@@ -29,7 +29,7 @@ RUN pip3 install cloudscraper
 ### STEP - 3:
 Create config.env file using this template. [config_sample.env](https://raw.githubusercontent.com/majnurangeela/For-Upstream-Mltb/master/bot/modules/config_sample.env).
 
-Don't touch UPSTREAM_REPO & UPSTREAM_BRANCH env vars else all these features won't be there !
+Don't touch `UPSTREAM_REPO` & `UPSTREAM_BRANCH` env vars else all these features won't be there !
 
 ### STEP - 4:
 Fill All Action Secrets.

@@ -1,6 +1,6 @@
 #  UPSTREAM_REPO.
 
-This is a modified repo of [anasty17](https://github.com/anasty17)'s [mltb](https://github.com/anasty17/mirror-leech-telegram-bot/tree/h-code)'h-code' branch.
+This is a modified repo of [anasty's mltb](https://github.com/anasty17/mirror-leech-telegram-bot/tree/h-code) 'h-code' branch.
 
 # Features:
 
@@ -11,7 +11,7 @@ This is a modified repo of [anasty17](https://github.com/anasty17)'s [mltb](http
 - Nothing more !
 
 ### Note:
-I am not the owner of these scrapers. The credit goes to the developers who developed these scripts.
+I am not the owner of these scrapers. The credit goes to the developer who developed these scripts.
 I just made some changes in these scrapers for bypassing more google drive sharers and fixed some issues regarding the compatibility with the code.
 
 # DEPLOY:
@@ -32,14 +32,29 @@ Don't touch UPSTREAM_REPO & UPSTREAM_BRANCH env vars else all these features won
 
 ### STEP - 4:
 Fill All Action Secrets.
-`HEROKU_API`: Get it from your heroku account.
-`HEROKU_APP_NAME`: Set unique appname.
-`HEROKU_EMAIL`: Heroku Email ID
-`CONFIG_FILE_URL`: Optional ENV.. You can upload config.env on gist or in heroku branch
+
+- `HEROKU_API`: Get it from your heroku account.
+- `HEROKU_APP_NAME`: Set unique appname.
+- `HEROKU_EMAIL`: Heroku Email ID
+- `CONFIG_FILE_URL`: Optional ENV.. You can upload config.env on gist or in heroku branch
 
 ### STEP - 5:
 RUN workflow with heroku branch from GitHub Action section !
 
+## IMPORTANT ! :
+
+For the simplification I've made some terms..
+
+- `UNIFIED` = AppDrive, DriveApp, GDFlix, DriveBit, DriveLinks, DriveSharer, DriveAce, DrivePro Sharer Links
+- `UNIFIED_EMAIL`: USE SAME GMAIL ACCOUNT IN ABOVE MENTIONED SHARERS
+- `UNIFIED_PASS` : USE SAME PASSWORD IN ABOVE MENTIONED SHARERS
+
+- `HUBDRIVE_CRYPT`: IT WILL BE USED TO BYPASS HUBDRIVE LINKS ONLY
+- `KATDRIVE_CRYPT`: IT WILL BE USED TO BYPASS KATDRIVE, KOLOP, DRIVEHUB LINKS
+- `DRIVEFIRE_CRYPT`: IT WILL BE USED TO BYPASS DRIVEFIRE LINKS ONLY
+
+- `XSRF_TOKEN` & `laravel_session`: BOTH COOKIES WILL BE USED TO BYPASS SHARER.PW LINKS
+- 
 ## CREDITS:
 - [Maverick](https://github.com/majnurangeela) for integration and compatibility fixes
 - [Anasty17](https://github.com/anasty17/mirror-leech-telegram-bot) for his MLTB & Heroku Bypass !

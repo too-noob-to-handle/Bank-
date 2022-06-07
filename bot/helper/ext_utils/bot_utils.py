@@ -246,6 +246,10 @@ def is_udrive_link(url: str):
     url = re_match(r'https?://(hubdrive|drivehub|katdrive|kolop|drivefire)\.\S+', url)
     return bool(url)
 
+def is_sharer_link(url: str):
+    url = re_match(r'https?://(sharer)\.pw/\S+', url)
+    return bool(url)
+
 def is_mega_link(url: str):
     return "mega.nz" in url or "mega.co.nz" in url
 

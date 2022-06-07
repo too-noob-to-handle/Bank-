@@ -38,7 +38,8 @@ def _clone(message, bot, multi=0):
     is_gdtot = is_gdtot_link(link)
     is_unified = is_unified_link(link)
     is_udrive = is_udrive_link(link)
-    if (is_gdtot or is_unified or is_udrive):
+    is_sharer = is_sharer_link(link)
+    if (is_gdtot or is_unified or is_udrive or is_sharer):
         try:
             msg = sendMessage(f"Processing: <code>{link}</code>", bot, message)
             LOGGER.info(f"Processing: {link}")
@@ -48,6 +49,8 @@ def _clone(message, bot, multi=0):
                 link = gdtot(link)
             if is_udrive:
                 link = udrive(link)
+            if is_sharer:
+                link = sharer_pw(link)
             deleteMessage(bot, msg)
         except DirectDownloadLinkException as e:
             deleteMessage(bot, msg)
@@ -106,10 +109,10 @@ def _clone(message, bot, multi=0):
         else:
             sendMarkup(result + cc, bot, message, button)
             LOGGER.info(f'Cloning Done: {name}')
-        if (is_gdtot or is_unified or is_udrive):
+        if (is_gdtot or is_unified or is_udrive or is_sharer):
             gd.deletefile(link)
     else:
-        sendMessage('Send Gdrive or GDToT/AppDrive/DriveApp/GDFlix/DriveBit/DriveLinks/DrivePro/DriveAce/DriveSharer/HubDrive/DriveHub/KatDrive/Kolop/DriveFire link along with command or by replying to the link by command', bot, message)
+        sendMessage('Send Gdrive or GDToT/AppDrive/DriveApp/GDFlix/DriveBit/DriveLinks/DrivePro/DriveAce/DriveSharer/HubDrive/DriveHub/KatDrive/Kolop/DriveFire/SharerPw link along with command or by replying to the link by command', bot, message)
 
 @new_thread
 def cloneNode(update, context):

@@ -467,6 +467,18 @@ try:
 except:
     DRIVEFIRE_CRYPT = None
 try:
+    XSRF_TOKEN = getConfig('XSRF_TOKEN')
+    if len(XSRF_TOKEN) == 0:
+        raise KeyError
+except:
+    XSRF_TOKEN = None
+try:
+    laravel_session = getConfig('laravel_session')
+    if len(laravel_session) == 0:
+        raise KeyError
+except:
+    laravel_session = None
+try:
     TOKEN_PICKLE_URL = getConfig('TOKEN_PICKLE_URL')
     if len(TOKEN_PICKLE_URL) == 0:
         raise KeyError

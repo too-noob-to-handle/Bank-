@@ -7,7 +7,8 @@ This is a modified repo of [anasty's mltb](https://github.com/anasty17/mirror-le
 ## ALL FEATURES OF [ANAS](https://github.com/anasty17/mirror-leech-telegram-bot)
 
 ## By [Maverick](https://telegram.dog/Maverick9099):
-- Added ability to clone AppDrive, DriveApp, GDFlix, DriveBit, DriveLinks, DriveSharer, DrivePro, DriveAce, HubDrive, DriveHub, Kolop, KatDrive, DriveFire & Sharer.pw  Links
+- Direct Clone from 
+  > GDToT, AppDrive, DriveApp, DriveLinks, DriveAce, DriveBit, DriveSharer, HubDrive, KatDrive, Kolop, DriveFire and Sharer.pw links
 - Nothing more !
 
 ### Note:

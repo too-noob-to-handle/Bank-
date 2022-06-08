@@ -8,7 +8,7 @@ This is a modified repo of [anasty's mltb](https://github.com/anasty17/mirror-le
 
 ## By [Maverick](https://telegram.dog/Maverick9099):
 - Direct Clone from 
-  > GDToT, AppDrive, DriveApp, DriveLinks, DriveAce, DriveBit, DriveSharer, DrivePro, HubDrive, KatDrive, DriveHub, Kolop, DriveFire and Sharer.pw links
+  > GDToT, AppDrive, DriveApp, DriveLinks, DriveAce, DriveBit, DriveSharer, DrivePro, HubDrive, KatDrive, DriveHub, Kolop, DriveFire, DriveBuzz and Sharer.pw links
 - Nothing more !
 
 ### Note:
@@ -51,9 +51,9 @@ For the simplification I've made some terms..
 - `UNIFIED_EMAIL`: USE SAME GMAIL ACCOUNT IN ABOVE MENTIONED SHARERS
 - `UNIFIED_PASS` : USE SAME PASSWORD IN ABOVE MENTIONED SHARERS
 
-- `HUBDRIVE_CRYPT`: IT WILL BE USED TO BYPASS HUBDRIVE LINKS ONLY
-- `KATDRIVE_CRYPT`: IT WILL BE USED TO BYPASS KATDRIVE, KOLOP, DRIVEHUB LINKS
-- `DRIVEFIRE_CRYPT`: IT WILL BE USED TO BYPASS DRIVEFIRE LINKS ONLY
+- `HUBDRIVE_CRYPT`: IT WILL BE USED TO BYPASS HUBDRIVE LINKS ONLY.
+- `KATDRIVE_CRYPT`: IT WILL BE USED TO BYPASS KATDRIVE, KOLOP, DRIVEHUB LINKS.
+- `DRIVEFIRE_CRYPT`: IT WILL BE USED TO BYPASS DRIVEFIRE & DRIVEBUZZ LINKS.
 
 - `XSRF_TOKEN` & `laravel_session`: BOTH COOKIES WILL BE USED TO BYPASS SHARER.PW LINKS
 - 

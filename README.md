@@ -21,11 +21,11 @@ I just made some changes in these scrapers for bypassing more google drive share
 Fork [MLTB](https://github.com/anasty17/mirror-leech-telegram-bot) with all branches or use his public template.
 
 ### STEP - 2:
-Go to 'heroku' branch in your forked repo and add this line in Dockerfile. (MUST else Sharer.pw Links won't be cloned):
+Go to 'heroku' branch in your forked repo and add this line in requirements.txt. (MUST else Sharer.pw Links won't be cloned):
 ```
-RUN pip3 install cloudscraper
+cloudscraper
 ```
-<p><img src="https://telegra.ph/file/dd60c2c30ad81a241e44b.png"/></p>
+
 
 ### STEP - 3:
 Create config.env file using this template. [config_sample.env](https://raw.githubusercontent.com/majnurangeela/For-Upstream-Mltb/master/bot/modules/config_sample.env).

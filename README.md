@@ -55,8 +55,8 @@ For the simplification I've made some terms..
 - `KATDRIVE_CRYPT`: IT WILL BE USED TO BYPASS KATDRIVE, KOLOP, DRIVEHUB LINKS.
 - `DRIVEFIRE_CRYPT`: IT WILL BE USED TO BYPASS DRIVEFIRE & DRIVEBUZZ LINKS.
 
-- `XSRF_TOKEN` & `laravel_session`: BOTH COOKIES WILL BE USED TO BYPASS SHARER.PW LINKS
-- 
+- `XSRF_TOKEN` & `laravel_session`: BOTH COOKIES WILL BE USED TO BYPASS SHARER.PW LINKS.
+
 ## CREDITS:
 - [Maverick](https://github.com/majnurangeela) for integration and compatibility fixes
 - [Anasty17](https://github.com/anasty17/mirror-leech-telegram-bot) for his MLTB & Heroku Bypass !

@@ -634,6 +634,10 @@ def sharer_pw(url, forced_login=False):
     if len(ddl_btn) and not forced_login and not 'url' in info_parsed:
         # retry download via login
         return sharer_pw(url, forced_login=True)
+      
+    try:
+        flink = info_parsed['gdrive_link']
+        return flink
+    except:
+        raise DirectDownloadLinkException(f"ERROR! {info_parsed['error_message']}")
     
-    flink = info_parsed['gdrive_link']
-    return flink

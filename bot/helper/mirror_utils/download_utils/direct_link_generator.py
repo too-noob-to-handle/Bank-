@@ -639,5 +639,5 @@ def sharer_pw(url, forced_login=False):
         flink = info_parsed['gdrive_link']
         return flink
     except:
-        raise DirectDownloadLinkException(f"ERROR! {info_parsed['error_message']}")
+        raise DirectDownloadLinkException("ERROR! File Not Found or User rate exceeded !!")
     

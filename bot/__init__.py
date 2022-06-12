@@ -397,6 +397,23 @@ try:
 except:
     WEB_PINCODE = False
 try:
+    AUTO_TG_DOWN = (getConfig('AUTO_TG_DOWN'))
+    if AUTO_TG_DOWN.lower() == 'true':
+        AUTO_TG_DOWN = True
+except:
+    log_warning('Auto Telegram Download Disabled!')
+    AUTO_TG_DOWN = False
+try:
+    AUTO_RE_ADD = getConfig('AUTO_RE_ADD')
+except:
+    log_warning('Auto Renaming add strings not provided!')
+    AUTO_RE_ADD = None
+try:
+    AUTO_RE_REM = getConfig('AUTO_RE_REM')
+except:
+    log_warning('Auto Renaming Remove strings not provided!')
+    AUTO_RE_REM = None
+try:
     SHORTENER = getConfig('SHORTENER')
     SHORTENER_API = getConfig('SHORTENER_API')
     if len(SHORTENER) == 0 or len(SHORTENER_API) == 0:

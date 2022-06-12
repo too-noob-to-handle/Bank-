@@ -172,7 +172,8 @@ class TelegramDownloadHelper:
                     if not acpt:
                         msg = f'You must leave {STORAGE_THRESHOLD}GB free storage.'
                         msg += f'\nYour File/Folder size is {get_readable_file_size(size)}'
-                        return sendMessage(msg, self.__listener.bot, self.__listener.message)self.__onDownloadStart(name, size, media.file_unique_id)
+                        return sendMessage(msg, self.__listener.bot, self.__listener.message)
+                self.__onDownloadStart(name, size, media.file_unique_id)
                 LOGGER.info(f'Downloading Telegram file with id: {media.file_unique_id}')
                 self.__download(_dmsg, path)
             else:

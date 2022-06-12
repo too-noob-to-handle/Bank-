@@ -2,8 +2,9 @@ from logging import getLogger, WARNING
 from time import time
 from threading import RLock, Lock
 from pyrogram import Client, enums
+import re
 
-from bot import LOGGER, download_dict, download_dict_lock, STOP_DUPLICATE, STORAGE_THRESHOLD, app
+from bot import LOGGER, download_dict, download_dict_lock, STOP_DUPLICATE, STORAGE_THRESHOLD, app, AUTO_RE_REM ,AUTO_RE_ADD 
 from bot.helper.ext_utils.bot_utils import get_readable_file_size
 from ..status_utils.telegram_download_status import TelegramDownloadStatus
 from bot.helper.telegram_helper.message_utils import sendMarkup, sendMessage, sendStatusMessage
@@ -126,3 +127,55 @@ class TelegramDownloadHelper:
         LOGGER.info(f'Cancelling download on user request: {self.__id}')
         self.__is_cancelled = True
         self.__onDownloadError('Cancelled by user!')
+        
+    def add_downloadauto(self, message, path, filename):
+        _dmsg = app.get_messages(message.chat.id, message_ids = message.message_id)
+        media = None
+        media_array = [_message.document, _message.video, _message.audio]
+        for i in media_array:
+            if i is not None:
+                media = i
+                break
+        if media is not None:
+            with global_lock:
+                # For avoiding locking the thread lock for long time unnecessarily
+                download = media.file_id not in GLOBAL_GID
+            if filename == "":
+                name = media.file_name
+                if AUTO_RE_REM :
+                 for i in AUTO_RE_REM.split(','):
+                    if i in name:
+                        name=name.replace(i,'')
+                if AUTO_RE_ADD :        
+                 name =name.replace('.'+name.split('.')[-1],'')+AUTO_RE_ADD+'.'+name.split('.')[-1]
+                path = path + name
+            else:
+                name = filename          
+                if AUTO_RE_REM :
+                 for i in AUTO_RE_REM.split(','):
+                    if i in name:
+                        name=name.replace(i,'')
+                if AUTO_RE_ADD :        
+                 name =name.replace('.'+name.split('.')[-1],'')+AUTO_RE_ADD+'.'+ name.split('.')[-1]
+                path = path + name      
+            if download:
+                if STOP_DUPLICATE and not self.__listener.isLeech:
+                    LOGGER.info('Checking File/Folder if already in Drive...')
+                    smsg, button = GoogleDriveHelper().drive_list(name, True, True)
+                    if smsg:
+                        msg = "File/Folder is already available in Drive.\nHere are the search results:"
+                        self.__onEventEnd()
+                        return sendMarkup(msg, self.__listener.bot, self.__listener.message, button)
+                if STORAGE_THRESHOLD is not None:
+                    arch = any([self.__listener.isZip, self.__listener.extract])
+                    acpt = check_storage_threshold(size, arch)
+                    if not acpt:
+                        msg = f'You must leave {STORAGE_THRESHOLD}GB free storage.'
+                        msg += f'\nYour File/Folder size is {get_readable_file_size(size)}'
+                        return sendMessage(msg, self.__listener.bot, self.__listener.message)self.__onDownloadStart(name, size, media.file_unique_id)
+                LOGGER.info(f'Downloading Telegram file with id: {media.file_unique_id}')
+                self.__download(_dmsg, path)
+            else:
+                self.__onDownloadError('File already being downloaded!')
+        else:
+            self.__onDownloadError('No document in the replied message')

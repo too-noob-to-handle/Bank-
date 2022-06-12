@@ -6,12 +6,14 @@ from time import time
 from sys import executable
 from telegram import InlineKeyboardMarkup
 from telegram.ext import CommandHandler
+from telegram.ext import MessageHandler # NEW
 
-from bot import bot, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, LOGGER, Interval, INCOMPLETE_TASK_NOTIFIER, DB_URI, alive, app, main_loop
+from bot import bot, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, LOGGER, Interval, INCOMPLETE_TASK_NOTIFIER, DB_URI, alive, app, main_loop, AUTO_TG_DOWN
 from .helper.ext_utils.fs_utils import start_cleanup, clean_all, exit_clean_up
 from .helper.ext_utils.telegraph_helper import telegraph
-from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
+from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time, is_url, is_magnet
 from .helper.ext_utils.db_handler import DbManger
+from .helper.mirror_utils.download_utils.telegram_downloader import TelegramDownloadHelper
 from .helper.telegram_helper.bot_commands import BotCommands
 from .helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
 from .helper.telegram_helper.filters import CustomFilters
@@ -99,6 +101,33 @@ def ping(update, context):
 
 def log(update, context):
     sendLogFile(context.bot, update.message)
+
+def fileshandler(update,context):
+    print('file')
+    link=''
+    name=''
+    file = None
+    media_array = [update.message.document, update.message.video, update.message.audio]
+        for i in media_array:
+            if i is not None:
+                file = i
+                break
+
+        if not is_url(link) and not is_magnet(link) or len(link) == 0:
+            if file is not None:
+                if file.mime_type != "application/x-bittorrent":
+                    tag = update.message.from_user_username
+                    listener = mirror.MirrorListener(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False, pswd='', tag)
+                    ms = update.message
+                    Thread(target=TelegramDownloadHelper(listener).add_downloadauto, args=(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)).start()
+                    #tg_downloader.add_downloadauto(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)
+                    return
+                else:
+                    if qbit:
+                        file.get_file().download(custom_path=f"/usr/src/app/{file.file_name}")
+                        link = f"/usr/src/app/{file.file_name}"
+                    else:
+                        link = file.get_file().file_path
 
 
 help_string_telegraph = f'''<br>
@@ -243,12 +272,16 @@ def main():
     stats_handler = CommandHandler(BotCommands.StatsCommand,
                                    stats, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
     log_handler = CommandHandler(BotCommands.LogCommand, log, filters=CustomFilters.owner_filter | CustomFilters.sudo_user, run_async=True)
+    files_handler = MessageHandler(Filters.video | Filters.document,fileshandler, run_async=True) # AUTO_DOWN_TG
+    
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(ping_handler)
     dispatcher.add_handler(restart_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(stats_handler)
     dispatcher.add_handler(log_handler)
+    if if AUTO_TG_DOWN :
+        dispatcher.add_handler(files_handler)
     updater.start_polling(drop_pending_updates=IGNORE_PENDING_REQUESTS)
     LOGGER.info("Bot Started!")
     signal(SIGINT, exit_clean_up)

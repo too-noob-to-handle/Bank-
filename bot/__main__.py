@@ -117,7 +117,7 @@ def fileshandler(update,context):
             if file is not None:
                 if file.mime_type != "application/x-bittorrent":
                     tag = update.message.from_user_username
-                    listener = mirror.MirrorListener(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False, pswd='', tag)
+                    listener = mirror.MirrorListener(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False, pswd='', tag = update.message.from_user_username)
                     ms = update.message
                     Thread(target=TelegramDownloadHelper(listener).add_downloadauto, args=(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)).start()
                     #tg_downloader.add_downloadauto(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)

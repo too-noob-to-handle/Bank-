@@ -280,7 +280,7 @@ def main():
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(stats_handler)
     dispatcher.add_handler(log_handler)
-    if if AUTO_TG_DOWN :
+    if AUTO_TG_DOWN :
         dispatcher.add_handler(files_handler)
     updater.start_polling(drop_pending_updates=IGNORE_PENDING_REQUESTS)
     LOGGER.info("Bot Started!")

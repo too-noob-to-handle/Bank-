@@ -105,30 +105,32 @@ def log(update, context):
 
 def fileshandler(update,context):
     print('file')
-    link=''
-    name=''
-    file = None
-    media_array = [update.message.document, update.message.video, update.message.audio]
-    for i in media_array:
-        if i is not None:
-            file = i
-            break
+    if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
+        
+        link=''
+        name=''
+        file = None
+        media_array = [update.message.document, update.message.video, update.message.audio]
+        for i in media_array:
+            if i is not None:
+                file = i
+                break
 
-        if not is_url(link) and not is_magnet(link) or len(link) == 0:
-            if file is not None:
-                if file.mime_type != "application/x-bittorrent":
-                    tag = update.message.from_user_username
-                    listener = mirror.MirrorListener(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False, pswd='', tag = update.message.from_user_username)
-                    ms = update.message
-                    Thread(target=TelegramDownloadHelper(listener).add_downloadauto, args=(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)).start()
-                    #tg_downloader.add_downloadauto(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)
-                    return
-                else:
-                    if qbit:
-                        file.get_file().download(custom_path=f"/usr/src/app/{file.file_name}")
-                        link = f"/usr/src/app/{file.file_name}"
+            if not is_url(link) and not is_magnet(link) or len(link) == 0:
+                if file is not None:
+                    if file.mime_type != "application/x-bittorrent":
+                        tag = update.message.from_user_username
+                        listener = mirror.MirrorListener(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False, pswd='', tag = update.message.from_user_username)
+                        ms = update.message
+                        Thread(target=TelegramDownloadHelper(listener).add_downloadauto, args=(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)).start()
+                        #tg_downloader.add_downloadauto(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)
+                        return
                     else:
-                        link = file.get_file().file_path
+                        if qbit:
+                            file.get_file().download(custom_path=f"/usr/src/app/{file.file_name}")
+                            link = f"/usr/src/app/{file.file_name}"
+                        else:
+                            link = file.get_file().file_path
 
 
 help_string_telegraph = f'''<br>

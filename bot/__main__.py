@@ -6,6 +6,7 @@ from time import time
 from sys import executable
 from telegram import InlineKeyboardMarkup
 from telegram.ext import CommandHandler
+from telegram.ext.filters import Filters
 from telegram.ext import MessageHandler # NEW
 
 from bot import bot, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, LOGGER, Interval, INCOMPLETE_TASK_NOTIFIER, DB_URI, alive, app, main_loop, AUTO_TG_DOWN
@@ -272,7 +273,7 @@ def main():
     stats_handler = CommandHandler(BotCommands.StatsCommand,
                                    stats, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
     log_handler = CommandHandler(BotCommands.LogCommand, log, filters=CustomFilters.owner_filter | CustomFilters.sudo_user, run_async=True)
-    files_handler = MessageHandler(filter.video | filter.document, fileshandler, run_async=True) # AUTO_DOWN_TG
+    files_handler = MessageHandler(Filters.video | Filters.document, fileshandler, run_async=True) # AUTO_DOWN_TG
     
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(ping_handler)

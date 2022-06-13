@@ -243,7 +243,7 @@ def is_unified_link(url: str):
     return bool(url)
 
 def is_new_link(url: str):
-    url = re_match(r'https?://(anidrive|driveroot|driveflix|indidrive|drivehub)\.\S+', url)
+    url = re_match(r'https?://(anidrive|driveroot|driveflix|indidrive|drivehub)\.in/\S+', url)
     return bool(url)
 
 def is_udrive_link(url: str):

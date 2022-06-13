@@ -239,11 +239,14 @@ def is_gdtot_link(url: str):
     return bool(url)
 
 def is_unified_link(url: str):
-  if 'indidrive.in' or 'driveroot.in' or 'drivehub.in' or 'anidrive.in' or 'driveflix.in' or '' in url:
-    return True
-  else:
+    url1 = re_match(r'https?://(anidrive|driveroot|driveflix|indidrive|drivehub)\.in/\S+', url)
     url = re_match(r'https?://(appdrive|driveapp|driveace|gdflix|drivelinks|drivebit|drivesharer|drivepro)\.\S+', url)
-    return bool(url)
+    if bool(url1) == True:
+        return bool(url1)
+    elif bool(url) == True:
+        return bool(url)
+    else:
+        return False
 
 def is_udrive_link(url: str):
     if 'drivehub.ws' in url:

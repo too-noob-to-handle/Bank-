@@ -41,6 +41,15 @@ def _clone(message, bot, multi=0):
     is_sharer = is_sharer_link(link)
     if (is_gdtot or is_unified or is_udrive or is_sharer):
         try:
+            if multi > 1:
+                sleep(4)
+                nextmsg = type('nextmsg', (object, ), {'chat_id': message.chat_id, 'message_id': message.reply_to_message.message_id + 1})
+                nextmsg = sendMessage(args[0], bot, nextmsg)
+                nextmsg.from_user.id = message.from_user.id
+                multi -= 1
+                sleep(4)
+                Thread(target=_clone, args=(nextmsg, bot, multi)).start()
+                
             msg = sendMessage(f"Processing: <code>{link}</code>", bot, message)
             LOGGER.info(f"Processing: {link}")
             if is_unified:

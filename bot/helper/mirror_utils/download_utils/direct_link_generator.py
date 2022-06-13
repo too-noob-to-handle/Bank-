@@ -419,7 +419,7 @@ def parse_infou(data):
 def unified(url: str) -> str:
     if (UNIFIED_EMAIL or UNIFIED_PASS) is None:
         raise DirectDownloadLinkException("UNIFIED_EMAIL and UNIFIED_PASS env vars not provided")
-    client = rsession()
+    client = cloudscraper.create_scraper(delay=10, browser='chrome')
     client.headers.update({
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
     })
@@ -471,20 +471,19 @@ def unified(url: str) -> str:
         flink = info_parsed['gdrive_link']
         return flink
     
-    if urlparse(url).netloc == 'driveapp.in':
+    elif urlparse(url).netloc == 'driveapp.in':
         res = client.get(info_parsed['gdrive_link'])
         drive_link = etree.HTML(res.content).xpath("//a[contains(@class,'btn')]/@href")[0]
         flink = drive_link
         return flink
+      
+    else:
+        res = client.get(info_parsed['gdrive_link'])
+        drive_link = etree.HTML(res.content).xpath("//a[contains(@class,'btn btn-primary')]/@href")[0]
+        flink = drive_link
+        info_parsed['src_url'] = url
+        return flink
 
-    res = client.get(info_parsed['gdrive_link'])
-    drive_link = etree.HTML(res.content).xpath("//a[contains(@class,'btn btn-primary')]/@href")[0]
-    flink = drive_link
-
-    info_parsed['src_url'] = url
-    
-    return flink
-  
 def parse_info(res, url):
     info_parsed = {}
     #title = re_findall('>(.*?)<\/h4>', res.text)[0] --- Not Important

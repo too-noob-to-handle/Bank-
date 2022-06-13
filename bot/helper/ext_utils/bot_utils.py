@@ -239,13 +239,16 @@ def is_gdtot_link(url: str):
     return bool(url)
 
 def is_unified_link(url: str):
-    url = re_match(r'https?://(appdrive|driveapp|driveace|gdflix|drivelinks|drivebit|drivesharer|drivepro)\.\S+', url)
+    url = re_match(r'https?://(appdrive|driveapp|driveace|gdflix|drivelinks|drivebit|drivesharer|drivepro|anidrive|driveroot|driveflix|drivehub|indidrive)\.(in|pro)/\S+', url)
     return bool(url)
 
 def is_udrive_link(url: str):
-    url = re_match(r'https?://(hubdrive|drivehub|katdrive|kolop|drivefire|drivebuzz)\.\S+', url)
-    return bool(url)
-
+    if 'drivehub.ws' in url:
+        return 'drivehub.ws' in url
+    else:
+        url = re_match(r'https?://(hubdrive|katdrive|kolop|drivefire|drivebuzz)\.\S+', url)
+        return bool(url)
+    
 def is_sharer_link(url: str):
     url = re_match(r'https?://(sharer)\.pw/\S+', url)
     return bool(url)

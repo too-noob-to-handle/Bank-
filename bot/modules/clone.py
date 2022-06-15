@@ -249,12 +249,11 @@ def _clone(message, bot, multi=0):
                 else:
                     update_all_messages()
             except IndexError:
-                pass
-        cc = f'\n\n<b>💬: </b>{tag}'
+                pass        
         if button in ["cancelled", ""]:
             sendMessage(f"{tag} {result}", bot, message)
         else:
-            sendMarkup(result + cc, bot, message, button)
+            sendMarkup(result, bot, message, button)
             LOGGER.info(f'Cloning Done: {name}')
         if (is_unified or is_udrive or is_sharer):
             gd.deletefile(link)

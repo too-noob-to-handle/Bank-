@@ -185,19 +185,24 @@ def _clone(message, bot, multi=0):
             except Exception as e:
                 deleteMessage(bot, msg)
                 return sendMessage(str(e), bot, message)
-        else:
-            tag = reply_to.from_user.mention_html(reply_to.from_user.first_name)
 
     is_unified = is_unified_link(link)
     is_udrive = is_udrive_link(link)
     is_sharer = is_sharer_link(link)
-    if (is_unified or is_udrive or is_sharer):
+    if (is_unified):
         try:
-            msg = sendMessage(f"Processing: <code>{link}</code>", bot, message)
+            msg = sendMessage(f"⚠️ 𝙋𝙧𝙤𝙘𝙚𝙨𝙨𝙞𝙣𝙜 𝙇𝙞𝙣𝙠 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩:-: <code>{link}</code>", bot, message)
+            LOGGER.info(f"Processing: {link}")
+    if (is_udrive):
+        try:
+            msg = sendMessage(f"⚠️ 𝙐𝙙𝙧𝙞𝙫𝙚 𝙇𝙞𝙣𝙠 𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩:- \n<code>{link}</code>", bot, message)
+            LOGGER.info(f"Processing: {link}")
+    if (is_sharer):
+        try:
+            msg = sendMessage(f"⚠️ 𝙎𝙝𝙖𝙧𝙚𝙧 𝙇𝙞𝙣𝙠 𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩:- \n<code>{link}</code>", bot, message)
             LOGGER.info(f"Processing: {link}")
             if is_unified:
                 link = unified(link)
-
             if is_udrive:
                 link = udrive(link)
             if is_sharer:
@@ -220,7 +225,7 @@ def _clone(message, bot, multi=0):
         if CLONE_LIMIT is not None:
             LOGGER.info('Checking File/Folder Size...')
             if size > CLONE_LIMIT * 1024**3:
-                msg2 = f'Failed, Clone limit is {CLONE_LIMIT}GB.\nYour File/Folder size is {get_readable_file_size(size)}.'
+                msg2 = f'𝙁𝙖𝙞𝙡𝙚𝙙, 𝘾𝙡𝙤𝙣𝙚 𝙡𝙞𝙢𝙞𝙩 𝙞𝙨 {CLONE_LIMIT}𝙂𝘽.\n𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚/𝙁𝙤𝙡𝙙𝙚𝙧 𝙨𝙞𝙯𝙚 𝙞𝙨 {get_readable_file_size(size)}.'
                 return sendMessage(msg2, bot, message)
         if multi > 1:
             sleep(4)
@@ -231,7 +236,7 @@ def _clone(message, bot, multi=0):
             sleep(4)
             Thread(target=_clone, args=(nextmsg, bot, multi)).start()
         if files <= 20:
-            msg = sendMessage(f"𝘾𝙡𝙤𝙣𝙞𝙣𝙜: <code>{link}</code>", bot, message)
+            msg = sendMessage(f"♻️ 𝘾𝙡𝙤𝙣𝙞𝙣𝙜: <code>{link}</code>", bot, message)
             result, button = gd.clone(link)
             deleteMessage(bot, msg)
         else:
@@ -263,7 +268,7 @@ def _clone(message, bot, multi=0):
         if (is_unified or is_udrive or is_sharer):
             gd.deletefile(link)
     else:
-        sendMessage('Send Gdrive or GDToT/AppDrive/DriveApp/GDFlix/DriveBit/DriveLinks/DrivePro/DriveAce/DriveSharer/HubDrive/DriveHub/KatDrive/Kolop/DriveFire/SharerPw link along with command or by replying to the link by command', bot, message)
+        sendMessage('𝘿𝙪𝙙𝙚, 𝙎𝙚𝙣𝙙 𝙂𝙙𝙧𝙞𝙫𝙚 𝙤𝙧 𝙂𝘿𝙏𝙤𝙏, 𝘼𝙥𝙥𝘿𝙧𝙞𝙫𝙚, 𝘿𝙧𝙞𝙫𝙚𝘼𝙥𝙥, 𝙂𝘿𝙁𝙡𝙞𝙭, 𝘿𝙧𝙞𝙫𝙚𝘽𝙞𝙩, 𝘿𝙧𝙞𝙫𝙚𝙇𝙞𝙣𝙠𝙨, 𝘿𝙧𝙞𝙫𝙚𝙋𝙧𝙤, 𝘿𝙧𝙞𝙫𝙚𝘼𝙘𝙚, 𝘿𝙧𝙞𝙫𝙚𝙎𝙝𝙖𝙧𝙚𝙧, 𝙃𝙪𝙗𝘿𝙧𝙞𝙫𝙚, 𝘿𝙧𝙞𝙫𝙚𝙃𝙪𝙗, 𝙆𝙖𝙩𝘿𝙧𝙞𝙫𝙚, 𝙆𝙤𝙡𝙤𝙥, 𝘿𝙧𝙞𝙫𝙚𝙁𝙞𝙧𝙚, 𝙎𝙝𝙖𝙧𝙚𝙧𝙋𝙬 𝙡𝙞𝙣𝙠 𝙖𝙡𝙤𝙣𝙜 𝙬𝙞𝙩𝙝 𝙘𝙤𝙢𝙢𝙖𝙣𝙙 𝙤𝙧 𝙗𝙮 𝙧𝙚𝙥𝙡𝙮𝙞𝙣𝙜 𝙩𝙤 𝙩𝙝𝙚 𝙡𝙞𝙣𝙠 𝙗𝙮 𝙘𝙤𝙢𝙢𝙖𝙣𝙙', bot, message)
 
 @new_thread
 def cloneNode(update, context):

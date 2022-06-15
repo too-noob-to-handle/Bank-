@@ -193,14 +193,23 @@ def _clone(message, bot, multi=0):
         try:
             msg = sendMessage(f"⚠️ 𝙋𝙧𝙤𝙘𝙚𝙨𝙨𝙞𝙣𝙜 𝙇𝙞𝙣𝙠 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩:-: <code>{link}</code>", bot, message)
             LOGGER.info(f"Processing: {link}")
+        except Exception as e:
+            deleteMessage(bot, msg)
+            return sendMessage(str(e), bot, message)
     if (is_udrive):
         try:
             msg = sendMessage(f"⚠️ 𝙐𝙙𝙧𝙞𝙫𝙚 𝙇𝙞𝙣𝙠 𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩:- \n<code>{link}</code>", bot, message)
             LOGGER.info(f"Processing: {link}")
+        except Exception as e:
+            deleteMessage(bot, msg)
+            return sendMessage(str(e), bot, message)
     if (is_sharer):
         try:
             msg = sendMessage(f"⚠️ 𝙎𝙝𝙖𝙧𝙚𝙧 𝙇𝙞𝙣𝙠 𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩:- \n<code>{link}</code>", bot, message)
             LOGGER.info(f"Processing: {link}")
+        except Exception as e:
+            deleteMessage(bot, msg)
+            return sendMessage(str(e), bot, message)
             if is_unified:
                 link = unified(link)
             if is_udrive:

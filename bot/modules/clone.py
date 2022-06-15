@@ -190,14 +190,12 @@ def _clone(message, bot, multi=0):
     is_unified = is_unified_link(link)
     is_udrive = is_udrive_link(link)
     is_sharer = is_sharer_link(link)
-    if (is_gdtot or is_unified or is_udrive or is_sharer):
+    if (is_unified or is_udrive or is_sharer):
         try:
-            msg = sendMessage(f"Processing: <code>{link}</code>", bot, message)
+            msg = sendMessage(f"⚠️ 𝙋𝙧𝙤𝙘𝙚𝙨𝙨𝙞𝙣𝙜 𝙇𝙞𝙣𝙠 𝙋𝙡𝙚𝙖𝙨𝙚 𝙒𝙖𝙞𝙩: \n<code>{link}</code>", bot, message)
             LOGGER.info(f"Processing: {link}")
             if is_unified:
                 link = unified(link)
-            if is_gdtot:
-                link = gdtot(link)
             if is_udrive:
                 link = udrive(link)
             if is_sharer:

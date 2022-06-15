@@ -445,10 +445,6 @@ def unified(url: str) -> str:
         
     if info_parsed['error']:
         raise DirectDownloadLinkException(f"ERROR! {info_parsed['error_message']}")
-    
-    if urlparse(url).netloc == 'appdrive.in':
-        flink = info_parsed['gdrive_link']
-        return flink
       
     elif urlparse(url).netloc == 'gdflix.pro':
         flink = info_parsed['gdrive_link']

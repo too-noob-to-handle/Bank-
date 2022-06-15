@@ -185,8 +185,6 @@ def _clone(message, bot, multi=0):
             except Exception as e:
                 deleteMessage(bot, msg)
                 return sendMessage(str(e), bot, message)
-        else:
-            tag = reply_to.from_user.mention_html(reply_to.from_user.first_name)
     is_unified = is_unified_link(link)
     is_udrive = is_udrive_link(link)
     is_sharer = is_sharer_link(link)

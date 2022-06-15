@@ -51,7 +51,6 @@ def stats(update, context):
             f'<b>🌡️ Used:</b> {used} | <b>🔥 Free:</b> {free}\n\n'\
             f'📊 Total Used Bandwidth 📊\n'\
             f'<b>📤 Upload:</b> {sent}\n'\
-
             f'<b>📥 Download:</b> {recv}\n\n'\
             f'<b>🖥️ CPU:</b> {cpuUsage}%\n'\
             f'<b>💾 RAM:</b> {mem_p}%\n'\

@@ -16,7 +16,6 @@ from base64 import b64decode
 from urllib.parse import urlparse, unquote
 from json import loads as jsnloads
 from lk21 import Bypass
-import lxml
 from lxml import etree
 from cfscrape import create_scraper
 import cloudscraper
@@ -470,6 +469,10 @@ def unified(url: str) -> str:
     if urlparse(url).netloc == 'appdrive.in':
         flink = info_parsed['gdrive_link']
         return flink
+      
+    elif urlparse(url).netloc == 'gdflix.pro':
+        flink = info_parsed['gdrive_link']
+        return flink
     
     elif urlparse(url).netloc == 'driveapp.in':
         res = client.get(info_parsed['gdrive_link'])
@@ -486,18 +489,26 @@ def unified(url: str) -> str:
 
 def parse_info(res, url):
     info_parsed = {}
-    #title = re_findall('>(.*?)<\/h4>', res.text)[0] --- Not Important
     if 'drivebuzz' in url:
         info_chunks = re_findall('<td\salign="right">(.*?)<\/td>', res.text)
+    elif 'sharer.pw' in url:
+        f = re_findall(">(.*?)<\/td>", res.text)
+        info_parsed = {}
+        for i in range(0, len(f), 3):
+          info_parsed[f[i].lower().replace(' ', '_')] = f[i+2]
+          return info_parsed
     else:
         info_chunks = re_findall('>(.*?)<\/td>', res.text)
-    #info_parsed['title'] = title  --- Not Important
     for i in range(0, len(info_chunks), 2):
         info_parsed[info_chunks[i]] = info_chunks[i+1]
     return info_parsed
   
 def udrive(url: str) -> str:
-    client = cloudscraper.create_scraper(delay=10, browser='chrome')
+    if 'katdrive' in url:
+      client = rsession()
+    else:
+      client = cloudscraper.create_scraper(delay=10, browser='chrome')
+    
     if 'hubdrive' in url:
         client.cookies.update({'crypt': HUBDRIVE_CRYPT})
     if 'drivehub' in url:
@@ -514,7 +525,6 @@ def udrive(url: str) -> str:
     res = client.get(url)
     info_parsed = parse_info(res, url)
     
-    #if 'drivebuzz' not in url:
     info_parsed['error'] = False
     
     up = urlparse(url)
@@ -553,13 +563,6 @@ def udrive(url: str) -> str:
 
     return flink
 
-def parse_infos(res):
-    f = re_findall(">(.*?)<\/td>", res.text)
-    info_parsed = {}
-    for i in range(0, len(f), 3):
-        info_parsed[f[i].lower().replace(' ', '_')] = f[i+2]
-    return info_parsed
-
 def sharer_pw(url, forced_login=False):
     client = cloudscraper.create_scraper(delay=10, browser='chrome')
     
@@ -569,12 +572,11 @@ def sharer_pw(url, forced_login=False):
     })
     
     res = client.get(url)
-    soup = BeautifulSoup(res.text, "lxml")
     token = re_findall("token\s=\s'(.*?)'", res.text, re.DOTALL)[0]
     
     ddl_btn = etree.HTML(res.content).xpath("//button[@id='btndirect']")
     
-    info_parsed = parse_infos(res)
+    info_parsed = parse_info(res, url)
     info_parsed['error'] = True
     info_parsed['src_url'] = url
     info_parsed['link_type'] = 'login' # direct/login

@@ -53,7 +53,7 @@ APPDRIVE_ACCOUNTS = [
 
 
 class AppDrive:
-  def __init__(self, baseURL:str = "https://appdrive.in") -> None:
+  def __init__(self, baseURL:str = "https://appdrive.info") -> None:
     self.loginData = random.choice(APPDRIVE_ACCOUNTS)
   
     self.keyRegex = '"key",\s+"(.*?)"'
@@ -160,6 +160,7 @@ class GdTot:
 if __name__ == "__main__":
     print(GdTot().download("https://new.gdtot.nl/file/161529855"))
     # print(GdTot().download("https://new.gdtot.nl/file/20395706860"))
+    
 #জিডিটট ও এপড্রাইভ মডিউল শেষ এইখানে।
 
 def _clone(message, bot, multi=0):
